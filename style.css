@@ -3,3 +3,8 @@ img {
   width: 100px;
   margin: 100px;
 }
+
+section {
+  padding: 30px;
+  border: 2px solid red;
+}

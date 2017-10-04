@@ -4,6 +4,7 @@ BusMall.allPics = [];
 BusMall.lastDisplayed = [];
 BusMall.section = document.getElementById('pics');
 
+
 BusMall.resultsList = document.getElementById('results');
 function BusMall(name, filepath) {
   this.name = name;
@@ -13,6 +14,21 @@ function BusMall(name, filepath) {
 
   BusMall.allPics.push(this);
 }
+BusMall.data = {
+  labels : BusMall.name,
+  datasets : [
+    {
+      data: BusMall.votes,
+      backgroundColor: [
+        'bisque',
+        'darkgray',
+        'burlywood',
+        'lightblue',
+        'navy'
+      ]
+    },
+  ]
+};
 
 new BusMall('bag','img/bag.jpg');
 new BusMall('banana', 'img/banana.jpg');
@@ -39,7 +55,35 @@ new BusMall('wine-glass', 'img/wine-glass.jpg');
 var imgEl = document.getElementById('pic1');
 var imgEl2 = document.getElementById('pic2');
 var imgEl3 = document.getElementById('pic3');
-
+function drawChart() {
+  var ctx = document.getElementById('votesShown').getContext('2d');
+  voteChart = new Chart(ctx, {
+    type: 'bar',
+    data: BusMall.data,
+    options: {
+      legend: {
+        labels: {
+          fontColor: 'darkgreen',
+          fontsize: 18
+        }
+      },
+      responsive: false,
+      animation: {
+        duration: 1000,
+        easing: 'easeOutBounce'
+      }
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          max: 10,
+          min: 0,
+          stepSize: 1
+        }
+      }]
+    }
+  });
+}
 function randomProduct() {
   var value1 = Math.floor(Math.random() * BusMall.allPics.length);
   var value2 = Math.floor(Math.random() * BusMall.allPics.length);
@@ -93,7 +137,7 @@ function handleClick(e) {
   if(BusMall.clicks > 24) {
     BusMall.section.removeEventListener('click', handleClick);
     //display the results
-    showResults();
+    drawChart();
   }
   //count votes for each image
 
@@ -102,12 +146,7 @@ function handleClick(e) {
 }
 
 //show the results on the page as a list
-function showResults() {
-  for(var i = 0; i < BusMall.allPics.length; i++) {
-    var liEl = document.createElement('li');
-    liEl.textContent = BusMall.allPics[i].name + ' has ' + BusMall.allPics[i].votes + ' votes in ' + BusMall.allPics[i].timesDisplayed + ' times shown.';
-    BusMall.resultsList.appendChild(liEl);
-  }
-}
+
+
 BusMall.section.addEventListener('click', handleClick);
 randomProduct();

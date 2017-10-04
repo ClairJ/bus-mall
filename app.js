@@ -3,7 +3,7 @@ BusMall.clicks = 0;
 BusMall.allPics = [];
 BusMall.lastDisplayed = [];
 BusMall.section = document.getElementById('pics');
-
+// var productChart;
 
 BusMall.resultsList = document.getElementById('results');
 function BusMall(name, filepath) {
@@ -14,21 +14,8 @@ function BusMall(name, filepath) {
 
   BusMall.allPics.push(this);
 }
-BusMall.data = {
-  labels : BusMall.name,
-  datasets : [
-    {
-      data: BusMall.votes,
-      backgroundColor: [
-        'bisque',
-        'darkgray',
-        'burlywood',
-        'lightblue',
-        'navy'
-      ]
-    },
-  ]
-};
+var votes = [];
+var names = [];
 
 new BusMall('bag','img/bag.jpg');
 new BusMall('banana', 'img/banana.jpg');
@@ -55,29 +42,43 @@ new BusMall('wine-glass', 'img/wine-glass.jpg');
 var imgEl = document.getElementById('pic1');
 var imgEl2 = document.getElementById('pic2');
 var imgEl3 = document.getElementById('pic3');
+
+
+function updateChart() {
+  for (var i = 0; i < BusMall.allPics.length; i++) {
+    names[i] = BusMall.allPics[i].name;
+    votes[i] = BusMall.allPics[i].votes;
+  }
+}
+
+var data = {
+  labels: names,
+  datasets: [
+    {
+      data: votes,
+      backgroundColor: '#48A497',
+    }
+  ]
+};
+
 function drawChart() {
-  var ctx = document.getElementById('votesShown').getContext('2d');
-  voteChart = new Chart(ctx, {
+  var ctx = document.getElementById('votesshown').getContext('2d');
+  productChart = new Chart(ctx, {
     type: 'bar',
-    data: BusMall.data,
+    data: data,
     options: {
       legend: {
+        display: false,
         labels: {
-          fontColor: 'darkgreen',
-          fontsize: 18
+          fontColor: 'green',
+          fontSize: 10
         }
       },
       responsive: false,
-      animation: {
-        duration: 1000,
-        easing: 'easeOutBounce'
-      }
     },
     scales: {
       yAxes: [{
         ticks: {
-          max: 10,
-          min: 0,
           stepSize: 1
         }
       }]
@@ -130,6 +131,7 @@ function handleClick(e) {
   for(var i = 0; i < BusMall.allPics.length; i++) {
     if(e.target.id === BusMall.allPics[i].name) {
       BusMall.allPics[i].votes += 1;
+      updateChart();
       console.log(BusMall.allPics[i].votes, ' votes');
     }
   }

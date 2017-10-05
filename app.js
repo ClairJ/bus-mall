@@ -3,7 +3,6 @@ BusMall.clicks = 0;
 BusMall.allPics = [];
 BusMall.lastDisplayed = [];
 BusMall.section = document.getElementById('pics');
-// var productChart;
 
 BusMall.resultsList = document.getElementById('results');
 function BusMall(name, filepath) {
@@ -14,6 +13,7 @@ function BusMall(name, filepath) {
 
   BusMall.allPics.push(this);
 }
+
 var votes = [];
 var names = [];
 
@@ -60,10 +60,13 @@ var data = {
     }
   ]
 };
-
+var dataAdd = {
+  labels: names,
+  data: votes,
+};
 function drawChart() {
   var ctx = document.getElementById('votesshown').getContext('2d');
-  productChart = new Chart(ctx, {
+  new Chart(ctx, {
     type: 'bar',
     data: data,
     options: {
@@ -90,13 +93,9 @@ function randomProduct() {
   var value2 = Math.floor(Math.random() * BusMall.allPics.length);
   var value3 = Math.floor(Math.random() * BusMall.allPics.length);
 
-  // while(BusMall.lastDisplayed.includes(value1) || BusMall.lastDisplayed.includes(value2) || BusMall.lastDisplayed.includes(value3)){
-  //   value1 = Math.floor(Math.random() * BusMall.allPics.length);
-  //   value2 = Math.floor(Math.random() * BusMall.allPics.length);
-  //   value3 = Math.floor(Math.random() * BusMall.allPics.length);
-  // }
   imgEl.src = BusMall.allPics[value1].filepath;
   imgEl.id = BusMall.allPics[value1].name;
+
   while (value1 === value2 || value1 === value3 || value2 === value3) {
     console.log('Prevented duplicates');
     value1 = Math.floor(Math.random() * BusMall.allPics.length);
@@ -136,10 +135,16 @@ function handleClick(e) {
     }
   }
 
-  if(BusMall.clicks > 24) {
+  if(BusMall.clicks > 4) {
     BusMall.section.removeEventListener('click', handleClick);
     //display the results
+    var dataStorage = JSON.stringify(dataAdd.data);
+    localStorage.unfail = dataStorage;
+    var retrievedFail = localStorage.unfail;
     drawChart();
+    var parsedFail = JSON.parse(retrievedFail);
+    votes += parsedFail;
+
   }
   //count votes for each image
 

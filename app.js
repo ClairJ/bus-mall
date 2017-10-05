@@ -13,7 +13,9 @@ function BusMall(name, filepath) {
 
   BusMall.allPics.push(this);
 }
-
+if (localStorage) {
+  BusMall.allPics = JSON.parse(localStorage.allPics);
+};
 var votes = [];
 var names = [];
 
@@ -48,8 +50,10 @@ function updateChart() {
   for (var i = 0; i < BusMall.allPics.length; i++) {
     names[i] = BusMall.allPics[i].name;
     votes[i] = BusMall.allPics[i].votes;
+    localStorage.votes = JSON.stringify(votes);
   }
 }
+
 
 var data = {
   labels: names,
@@ -59,10 +63,6 @@ var data = {
       backgroundColor: '#48A497',
     }
   ]
-};
-var dataAdd = {
-  labels: names,
-  data: votes,
 };
 function drawChart() {
   var ctx = document.getElementById('votesshown').getContext('2d');
@@ -88,6 +88,8 @@ function drawChart() {
     }
   });
 }
+
+
 function randomProduct() {
   var value1 = Math.floor(Math.random() * BusMall.allPics.length);
   var value2 = Math.floor(Math.random() * BusMall.allPics.length);
@@ -135,15 +137,11 @@ function handleClick(e) {
     }
   }
 
-  if(BusMall.clicks > 4) {
+  if(BusMall.clicks > 24) {
     BusMall.section.removeEventListener('click', handleClick);
     //display the results
-    var dataStorage = JSON.stringify(dataAdd.data);
-    localStorage.unfail = dataStorage;
-    var retrievedFail = localStorage.unfail;
     drawChart();
-    var parsedFail = JSON.parse(retrievedFail);
-    votes += parsedFail;
+    localStorage.allPics = JSON.stringify(BusMall.allPics);
 
   }
   //count votes for each image

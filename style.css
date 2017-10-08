@@ -1,11 +1,59 @@
+html {
+  background-color: #000000
+}
+body {
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-top: 0;
+  margin-bottom: 0;
+  background-color: #72bcd3;
+  min-height: 100%;
+  height: 100%;
+  border-radius: 10%;
+  border: 5px solid blue;
+}
 img {
   height: 100px;
   width: 100px;
-  margin: 100px;
+  margin-top: 30px;
+  margin-left: 220px;
+  margin-bottom: 30px;
   border: 2px solid black;
+  border-radius: 50%;
 }
 
 section {
-  padding: 30px;
-  border: 2px solid red;
+  border-top: none;
+  border-bottom: none;
+  border-radius: 10%;
+  padding-top: 80px
+}
+h2 {
+  font-family: sans-serif;
+  margin: 0;
+
+  text-align: center;
+}
+section p {
+  margin: 0;
+
+  margin-top: 30px;
+
+  text-align: center;
+}
+canvas {
+  margin-left: 85px;
+  border: 2px solid black;
+  background-color: white;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+.headerContent {
+background-color: blue;
+margin-top: 0;
+margin-left: 40%;
+border: 5px solid black;
+border-radius: 4%;
+width:20%;
+
 }

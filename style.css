@@ -1,16 +1,24 @@
+@font-face {
+  font-family: westy;
+  src: url('fontsstorage/WEST____.TTF');
+}
 html {
-  background-color: #000000
+  background-image: url('css img/hWCGHK.jpg');
 }
 body {
+  font-family: westy;
+  font-size: 20px;
   margin-left: 200px;
   margin-right: 200px;
   margin-top: 0;
   margin-bottom: 0;
-  background-color: #72bcd3;
+  background-image: url('css img/vintage-western-wallpaper.jpg');
+  background-position-x:50%;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-origin: padding-box;
   min-height: 100%;
   height: 100%;
-  border-radius: 10%;
-  border: 5px solid blue;
 }
 img {
   height: 100px;
@@ -21,7 +29,10 @@ img {
   border: 2px solid black;
   border-radius: 50%;
 }
-
+#h2 {
+  font-family: westy;
+  font-size: 55px;
+}
 section {
   border-top: none;
   border-bottom: none;
@@ -49,10 +60,8 @@ canvas {
   margin-top: 20px;
 }
 .headerContent {
-background-color: blue;
 margin-top: 0;
 margin-left: 40%;
-border: 5px solid black;
 border-radius: 4%;
 width:20%;
 

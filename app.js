@@ -16,7 +16,7 @@ function BusMall(name, filepath) {
 var votes = [];
 var names = [];
 
-if (localStorage) {
+if (Boolean(localStorage.memory) === true) {
   console.log('local test ', localStorage.votes);
   BusMall.allPics = JSON.parse(localStorage.allPics);
 } else {
